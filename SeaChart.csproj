@@ -76,6 +76,9 @@
     <Compile Include="Program.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="FormSeaChart.resx">
+      <DependentUpon>FormSeaChart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

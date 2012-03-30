@@ -28,14 +28,20 @@ namespace SeaChart {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent () {
-            SuspendLayout();
-            ClientSize = new Size(640, 480);
-            Name = "FormSeaChart";
-            MouseClick += new MouseEventHandler(this.Form_MouseClick);
-            Load += new EventHandler(this.Form_Load);
-            FormClosing += new FormClosingEventHandler(this.Form_FormClosing);
-            KeyDown += new KeyEventHandler(Form_KeyDown);
-            ResumeLayout(false);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSeaChart));
+            this.SuspendLayout();
+            //
+            // FormSeaChart
+            //
+            this.ClientSize = new System.Drawing.Size(640, 480);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "FormSeaChart";
+            this.Load += new System.EventHandler(this.Form_Load);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form_MouseClick);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
