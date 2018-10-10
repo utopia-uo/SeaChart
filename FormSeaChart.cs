@@ -297,7 +297,7 @@ namespace SeaChart {
             int xLong = 0, yLat = 0;
             int xMins = 0, yMins = 0;
 
-            //Are we in borns ?
+            //Are we in bounds ?
             if (x < 0 || y < 0 || x >= chart.XWidth || y >= chart.YHeight) {
                 return;
             }
@@ -306,7 +306,7 @@ namespace SeaChart {
             double absLong = (double)((x - chart.XZero) * 360) / chart.XWidth;
             double absLat = (double)((y - chart.YZero) * 360) / chart.YHeight;
 
-            //[-180, 180]
+            //]-180, 180]
             if (absLong > 180.0)
                 absLong = -180.0 + (absLong % 180.0);
 
