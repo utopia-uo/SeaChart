@@ -19,7 +19,7 @@ namespace SeaChart {
         private bool targetingMoveDot = false;
 
         /// <summary>
-        /// The dot targettd to move
+        /// The dot targeted to move
         /// </summary>
         private PictureBox targetedDot;
 
