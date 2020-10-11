@@ -10,7 +10,7 @@ namespace SeaChart {
     /// Main options class, serialized into preferences.xml
     /// </summary>
     [Serializable]
-    public class MainOptions {       
+    public class MainOptions {
         #region Dots
         private SerializableDictionary<Point, string> dots = new SerializableDictionary<Point, string>();
 
