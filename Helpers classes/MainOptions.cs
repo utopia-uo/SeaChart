@@ -17,7 +17,7 @@ namespace SeaChart {
         /// <summary>
         /// Gets or sets the Dictionary containing the dots positions and tags.
         /// </summary>
-        /// <value>The dots dictionnary.</value>
+        /// <value>The dots dictionary.</value>
         public SerializableDictionary<Point, string> Dots {
             get { return dots; }
             set { dots = value; }
