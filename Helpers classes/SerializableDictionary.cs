@@ -1,4 +1,4 @@
-﻿/*
+/*
  * XML Serializable Generic Dictionary
  * Paul Welter
  * http://weblogs.asp.net/pwelter34/archive/2006/05/03/444961.aspx
