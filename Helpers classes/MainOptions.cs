@@ -71,11 +71,11 @@ namespace SeaChart {
             if (File.Exists(optionsFile)) {
                 //Initializes a new instance of the class, to deserialize the options file
                 XmlSerializer serializer = new XmlSerializer(typeof(MainOptions));
-                
+
                 //Read option files
                 StreamReader streamReader = new StreamReader(optionsFile);
                 XmlTextReader xmlReader = new XmlTextReader(streamReader);
-                
+
                 //Deserializes it
                 if (serializer.CanDeserialize(xmlReader)) {
                     options = (MainOptions)serializer.Deserialize(xmlReader);
