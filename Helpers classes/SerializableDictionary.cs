@@ -3,7 +3,7 @@
  * Paul Welter
  * http://weblogs.asp.net/pwelter34/archive/2006/05/03/444961.aspx
  * 
- * The key and value types must be itselves serializable.
+ * The key and value types must be themselves serializable.
  */
 
 using System;

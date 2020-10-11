@@ -43,7 +43,7 @@ namespace SeaChart {
                 }
             }
 
-            //The uesrs wants to create a new options file
+            //The users wants to create a new options file
             try {
                 Options = MainOptions.CreateNewOptionsFile(MainOptions.DefaultOptionsFile);
                 return true;

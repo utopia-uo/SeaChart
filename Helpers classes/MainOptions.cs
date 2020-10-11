@@ -81,7 +81,7 @@ namespace SeaChart {
                     options = (MainOptions)serializer.Deserialize(xmlReader);
                 }
 
-                //Closes rssources
+                //Closes resources
                 xmlReader.Close();
                 streamReader.Close();
             }
