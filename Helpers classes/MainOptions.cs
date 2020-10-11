@@ -43,7 +43,7 @@ namespace SeaChart {
         public static MainOptions CreateNewOptionsFile (string optionsFile) {
             //Gets the directory, and create it if it doesn't exist yet
             string directoryName = Path.GetDirectoryName(DefaultOptionsFile);
-            if (directoryName != "" && !Directory.Exists(directoryName)) {
+            if (!string.IsNullOrEmpty(directoryName) && !Directory.Exists(directoryName)) {
                 Directory.CreateDirectory(directoryName);
             }
             //Returns a new instance of the class, and serializes it into the specified XML file.
@@ -87,16 +87,14 @@ namespace SeaChart {
             }
 
             //If the file doesn't exist or contains error, create a new one.
-            if (options == null) options = CreateNewOptionsFile(optionsFile);
-
-            return options;
+            return options ?? CreateNewOptionsFile(optionsFile);
         }
 
         /// <summary>
         /// Saves this instance, serializing it into the default options file.
         /// </summary>
         public void Save () {
-            this.Save(DefaultOptionsFile);
+            Save(DefaultOptionsFile);
         }
 
         /// <summary>
@@ -109,7 +107,7 @@ namespace SeaChart {
 
             //Serializes the class
             XmlSerializer serializer = new XmlSerializer(GetType());
-            serializer.Serialize((TextWriter)writer, this);
+            serializer.Serialize(writer, this);
 
             //Clears all buffers for the current writer and causes any buffered data to
             //be written to the underlying stream and closes the file stream.
