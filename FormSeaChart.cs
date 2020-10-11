@@ -14,7 +14,7 @@ namespace SeaChart {
         /// <summary>
         /// Indicates if we're moving a dot
         /// </summary>
-        private bool targetingMoveDot = false;
+        private bool targetingMoveDot;
 
         /// <summary>
         /// The dot targeted to move
@@ -150,7 +150,7 @@ namespace SeaChart {
             targetingMoveDot = false;
 
             //Print coords
-            PrintCoords((new Point(box.Location.X + 5, box.Location.Y + 5)));
+            PrintCoords(new Point(box.Location.X + 5, box.Location.Y + 5));
         }
         #endregion
 
@@ -170,9 +170,10 @@ namespace SeaChart {
         /// <param name="tag">The dot tag.</param>
         private void AddDot (Point location, string tag) {
             //Creates a new PictureBox control, with a blue or red dot as image
-            PictureBox box = new PictureBox();
-            box.Image = (tag == "CarreBleu") ? Resources.CarreBleu : Resources.CarreBordeau;
-            box.Tag = tag;
+            PictureBox box = new PictureBox {
+                Tag = tag,
+                Image = tag == "CarreBleu" ? Resources.CarreBleu : Resources.CarreBordeau,
+            };
 
             //Picture box properties
             box.Size = box.Image.Size;
@@ -180,8 +181,8 @@ namespace SeaChart {
             box.Visible = true;
 
             //We attach to the picturebox two event handlers, to handle mouse clicks
-            box.MouseClick += new MouseEventHandler(pictureBoxDot_MouseClick);
-            box.MouseDoubleClick += new MouseEventHandler(pictureBoxDot_MouseDoubleClick);
+            box.MouseClick += pictureBoxDot_MouseClick;
+            box.MouseDoubleClick += pictureBoxDot_MouseDoubleClick;
             Controls.Add(box);
         }
 
@@ -212,7 +213,7 @@ namespace SeaChart {
         /// <returns></returns>
         private SerializableDictionary<Point, string> GetDots () {
             SerializableDictionary<Point, string> dict = new SerializableDictionary<Point, string>();
-            foreach (Control control in base.Controls) {
+            foreach (Control control in Controls) {
                 if (control is PictureBox) {
                     dict.Add(control.Location, control.Tag.ToString());
                 }
@@ -272,19 +273,19 @@ namespace SeaChart {
             //Latitude
             if (point.Y <= chart.YCenter) {
                 //We're bottom the center, so in South, \x00b0 = °
-                coords = string.Format("{0}\x00b0 S", Math.Round(((double)(point.Y - chart.YStart) / (chart.YCenter - chart.YStart)) * 180.0));
+                coords = string.Format("{0}\x00b0 S", Math.Round((double)(point.Y - chart.YStart) / (chart.YCenter - chart.YStart) * 180.0));
             } else {
                 //We're up the center, so in North
-                coords = string.Format("{0}\x00b0 N", Math.Round((((double)(chart.YEnd - point.Y) + 1.0) / (chart.YEnd - chart.YCenter)) * 180.0));
+                coords = string.Format("{0}\x00b0 N", Math.Round(((double)(chart.YEnd - point.Y) + 1.0) / (chart.YEnd - chart.YCenter) * 180.0));
             }
 
             //Longitude
             if (point.X <= chart.XCenter) {
                 //We're at the left of our center, so east (the UO maps paradox)
-                coords += string.Format(" {0}\x00b0 E", Math.Round(((double)(point.X - chart.XStart) / (chart.XCenter - chart.XStart)) * 180.0));
+                coords += string.Format(" {0}\x00b0 E", Math.Round((double)(point.X - chart.XStart) / (chart.XCenter - chart.XStart) * 180.0));
             } else {
                 //We're at the right of our center, so west (the UO maps paradox)
-                coords += string.Format(" {0}\x00b0 W", Math.Round(((double)(chart.XEnd - point.X) / (chart.XEnd - chart.XCenter)) * 180.0));
+                coords += string.Format(" {0}\x00b0 W", Math.Round((double)(chart.XEnd - point.X) / (chart.XEnd - chart.XCenter) * 180.0));
             }
 
             return coords;
@@ -296,9 +297,6 @@ namespace SeaChart {
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         public void AddDotAtCoords (int x, int y) {
-            int xLong = 0, yLat = 0;
-            int xMins = 0, yMins = 0;
-
             //Are we in bounds ?
             if (x < 0 || y < 0 || x >= chart.XWidth || y >= chart.YHeight) {
                 return;
@@ -309,14 +307,16 @@ namespace SeaChart {
             double absLat = (double)((y - chart.YZero) * 360) / chart.YHeight;
 
             //]-180, 180]
-            if (absLong > 180.0)
-                absLong = -180.0 + (absLong % 180.0);
+            if (absLong > 180.0) {
+                absLong = -180.0 + absLong % 180.0;
+            }
 
-            if (absLat > 180.0)
-                absLat = -180.0 + (absLat % 180.0);
+            if (absLat > 180.0) {
+                absLat = -180.0 + absLat % 180.0;
+            }
 
             //Are we east or west ? Are we south or north ?
-            bool east = (absLong >= 0), south = (absLat >= 0);
+            bool east = absLong >= 0, south = absLat >= 0;
 
             //Now let's take the absolute value
             if (absLong < 0.0)
@@ -326,12 +326,12 @@ namespace SeaChart {
                 absLat = -absLat;
 
             //Keeps the integer part
-            xLong = (int)absLong;
-            yLat = (int)absLat;
+            int xLong = (int)absLong;
+            int yLat = (int)absLat;
 
             //Convert the decimal part in minutes
-            xMins = (int)((absLong % 1.0) * 60);
-            yMins = (int)((absLat % 1.0) * 60);
+            int xMins = (int)(absLong % 1.0 * 60);
+            int yMins = (int)(absLat % 1.0 * 60);
 
             //We've the coordinate, sets the title
             SetTitle(

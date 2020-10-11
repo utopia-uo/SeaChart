@@ -22,7 +22,7 @@ namespace System.Collections.Generic {
         /// <summary>
         /// Initializes a new instance of the <see cref="SerializableDictionary&lt;TKey, TValue&gt;"/> class.
         /// </summary>
-        public SerializableDictionary () : base() { }
+        public SerializableDictionary () { }
         /// <summary>
         /// Initializes a new instance of the <see cref="SerializableDictionary&lt;TKey, TValue&gt;"/> class.
         /// </summary>
@@ -36,7 +36,7 @@ namespace System.Collections.Generic {
         /// <returns>
         /// An <see cref="T:System.Xml.Schema.XmlSchema"/> that describes the XML representation of the object that is produced by the <see cref="M:System.Xml.Serialization.IXmlSerializable.WriteXml(System.Xml.XmlWriter)"/> method and consumed by the <see cref="M:System.Xml.Serialization.IXmlSerializable.ReadXml(System.Xml.XmlReader)"/> method.
         /// </returns>
-        public System.Xml.Schema.XmlSchema GetSchema () {
+        public XmlSchema GetSchema () {
             return null;
         }
 
@@ -55,7 +55,7 @@ namespace System.Collections.Generic {
             if (wasEmpty)
                 return;
 
-            while (reader.NodeType != System.Xml.XmlNodeType.EndElement) {
+            while (reader.NodeType != XmlNodeType.EndElement) {
                 reader.ReadStartElement("item");
                 reader.ReadStartElement("key");
                 TKey key = (TKey)keySerializer.Deserialize(reader);
@@ -63,7 +63,7 @@ namespace System.Collections.Generic {
                 reader.ReadStartElement("value");
                 TValue value = (TValue)valueSerializer.Deserialize(reader);
                 reader.ReadEndElement();
-                this.Add(key, value);
+                Add(key, value);
                 reader.ReadEndElement();
                 reader.MoveToContent();
             }
