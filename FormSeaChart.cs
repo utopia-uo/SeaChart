@@ -12,17 +12,17 @@ namespace SeaChart {
     /// [Windows Form] The main application form
     /// </summary>
     public partial class FormSeaChart : Form {
-        
+
         /// <summary>
         /// Indicates if we're moving a dot
         /// </summary>
         private bool targetingMoveDot = false;
-        
+
         /// <summary>
         /// The dot targettd to move
         /// </summary>
         private PictureBox targetedDot;
-        
+
         /// <summary>
         /// The chart information
         /// </summary>
@@ -82,7 +82,7 @@ namespace SeaChart {
             } else if (e.Button == MouseButtons.Left) {
                 //Closes a move operation, if needed.
                 if (targetingMoveDot) {
-                    //End of a dot move 
+                    //End of a dot move
                     if (targetedDot != null) {
                         targetedDot.Location = e.Location;
                     }
@@ -133,7 +133,7 @@ namespace SeaChart {
         /// <param name="e">The <see cref="System.Windows.Forms.MouseEventArgs"/> instance containing the event data.</param>
         private void pictureBoxDot_MouseDoubleClick (object sender, MouseEventArgs e) {
             PictureBox box = (PictureBox)sender;
-            
+
             //We swap between blue (carré bleu) and red (carré bordeau) dots
             //Dots are identified by a tag "Carrebleu" or "CarreRouge" in the options file
             if (box.Tag.ToString() == "CarreBleu") {
@@ -145,8 +145,8 @@ namespace SeaChart {
             }
 
             //pictureBoxDot_MouseClick is also handled but user doesn't want to move it
-            targetingMoveDot = false; 
-            
+            targetingMoveDot = false;
+
             //Print coords
             PrintCoords((new Point(box.Location.X + 5, box.Location.Y + 5)));
         }
@@ -225,10 +225,10 @@ namespace SeaChart {
         private void RemoveControl (Control control) {
             //Makes the control not showed
             control.Visible = false;
-            //Removes it from our form controls collection and disposes all associated resources 
+            //Removes it from our form controls collection and disposes all associated resources
             Controls.Remove(control);
             control.Dispose();
-        } 
+        }
 
         /// <summary>
         /// Removes all dots.
@@ -266,7 +266,7 @@ namespace SeaChart {
         /// <returns>A string containing the coordinates</returns>
         private string GetCoords (Point point) {
             string coords;
-            
+
             //Latitude
             if (point.Y <= chart.YCenter) {
                 //We're bottom the center, so in South, \x00b0 = °
