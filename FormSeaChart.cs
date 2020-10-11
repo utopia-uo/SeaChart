@@ -33,7 +33,9 @@ namespace SeaChart {
         /// </summary>
         public FormSeaChart () {
             InitializeComponent();
+        }
 
+        private void LoadChart () {
             //Chart selection
             chart = Chart.Britannia;
 
@@ -50,6 +52,8 @@ namespace SeaChart {
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Form_Load (object sender, EventArgs e) {
+            LoadChart();
+
             try {
                 //Reads saved dots and adds it
                 foreach (Point point in Program.Options.Dots.Keys) {
